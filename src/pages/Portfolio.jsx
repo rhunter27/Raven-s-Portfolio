@@ -1,10 +1,12 @@
-// src/pages/Portfolio/Portfolio.jsx
-import { useState, useEffect } from 'react';
-import Project from '../../components/Project/Project'; // Updated import path
-import { getProjects, fetchGitHubRepos } from '../../api/github';
-import './Portfolio.css'; // Portfolio-specific styles
+// src/pages/Portfolio.jsx
+import React, { useState, useEffect } from 'react';
+import { useTheme } from '../context/ThemeContext';
+import { Project } from '../components/Project';      // ← use named import
+import { getProjects, fetchRepos } from '../utils/github';
+import '../global.css';
 
-const Portfolio = () => {
+export default function Portfolio() {
+  const { theme } = useTheme();
   const [projects, setProjects] = useState([]);
   const [githubRepos, setGithubRepos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,15 +16,14 @@ const Portfolio = () => {
     const loadData = async () => {
       try {
         setLoading(true);
-        
-        // Load both data sources in parallel
+
         const [localProjects, repos] = await Promise.all([
           getProjects(),
-          fetchGitHubRepos('yourUsername')
+          fetchRepos(),
         ]);
-        
+
         setProjects(localProjects);
-        setGithubRepos(repos.filter(repo => !repo.private)); // Exclude private repos
+        setGithubRepos(repos.filter((repo) => !repo.private));
       } catch (err) {
         console.error('Failed to load projects:', err);
         setError('Failed to load projects. Please try again later.');
@@ -35,42 +36,52 @@ const Portfolio = () => {
   }, []);
 
   if (loading) {
-    return <div className="loading-spinner">Loading projects...</div>;
+    return (
+      <div className="portfolio-page__loading" data-theme={theme}>
+        Loading projects...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="error-message">{error}</div>;
+    return (
+      <div className="portfolio-page__error" data-theme={theme}>
+        {error}
+      </div>
+    );
   }
 
   return (
-    <section className="portfolio-container">
-      <h2 className="portfolio-title">My Projects</h2>
-      
-      <div className="portfolio-grid">
-        {/* Local projects */}
+    <section className="portfolio-page" data-theme={theme}>
+      <h2 className="portfolio-page__title">My Projects</h2>
+
+      <div className="portfolio-page__grid">
         {projects.map((project) => (
-          <Project 
-            key={`local-${project.id || project.title}`}
-            {...project}
-            source="local"
+          <Project
+            key={`local-${project.id || project.name}`}
+            title={project.name}
+            description={project.description}
+            image={project.image || ''}
+            technologies={project.technologies || []}
+            githubLink={project.githubLink}
+            liveLink={project.liveLink}
+            borderColor="var(--accent-primary)"
           />
         ))}
-        
-        {/* GitHub repos */}
+
         {githubRepos.map((repo) => (
-          <Project 
+          <Project
             key={`gh-${repo.id}`}
             title={repo.name}
             description={repo.description || 'No description available'}
+            image={repo.owner.avatar_url}
             technologies={repo.topics || []}
             githubLink={repo.html_url}
-            homepage={repo.homepage}
-            source="github"
+            liveLink={repo.homepage}
+            borderColor="var(--accent-secondary)"
           />
         ))}
       </div>
     </section>
   );
-};
-
-export default Portfolio;
+}
