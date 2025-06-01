@@ -1,23 +1,41 @@
-// src/utils/formatDate.js
+// src/utils/github.js
 
 /**
- * Formats a Date object to a readable string.
- * Default format: "Month Day, Year" e.g. "May 30, 2025"
- * 
- * @param {Date | string | number} dateInput - Date object or date string/number
- * @param {Object} options - Optional Intl.DateTimeFormat options
- * @returns {string} Formatted date string
+ * Fetch public repositories from GitHub for user “rhunter27”
+ * Returns an array of repo objects.
  */
-export function formatDate(dateInput, options) {
-    if (!dateInput) return ''
-  
-    const date = dateInput instanceof Date ? dateInput : new Date(dateInput)
-  
-    if (isNaN(date)) return ''
-  
-    const defaultOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-    const formatOptions = options || defaultOptions
-  
-    return date.toLocaleDateString(undefined, formatOptions)
+export async function fetchRepos() {
+  const response = await fetch('https://api.github.com/users/rhunter27/repos');
+  if (!response.ok) {
+    throw new Error('GitHub API request failed');
   }
-  
+  return await response.json();
+}
+
+/**
+ * Return a static list of “local” projects for the portfolio.
+ * You can adjust this to fetch from a JSON file or another source.
+ */
+export async function getProjects() {
+  return [
+    {
+      id: 1,
+      name: 'Project 1',
+      description: 'Description for project 1',
+      image: '', // add an image URL if available
+      technologies: ['React', 'CSS'],
+      githubLink: 'https://github.com/yourusername/project1',
+      liveLink: 'https://yourusername.github.io/project1',
+    },
+    {
+      id: 2,
+      name: 'Project 2',
+      description: 'Description for project 2',
+      image: '',
+      technologies: ['Node.js', 'Express'],
+      githubLink: 'https://github.com/yourusername/project2',
+      liveLink: 'https://yourusername.github.io/project2',
+    },
+    // Add more local projects here as needed
+  ];
+}
