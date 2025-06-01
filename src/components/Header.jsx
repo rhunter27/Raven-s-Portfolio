@@ -1,72 +1,47 @@
-// src/components/Header/Header.jsx
-import { NavLink } from 'react-router-dom';
-import ThemeToggle from './ThemeToggle';
-import '../styles/header.css'; // Correct path for header.css
+// src/components/Header.jsx
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import '../global.css'; // still load your global CSS
 
-const Header = () => {
+export default function Header() {
+  // Assign active class when route matches
+  const linkClass = ({ isActive }) =>
+    isActive ? 'header__link header__link--active' : 'header__link';
+
   return (
-    <header className="header bg-light shadow-sm py-3">
-      <div className="container d-flex justify-content-between align-items-center">
-        <NavLink to="/" className="text-decoration-none">
-          <h1 className="logo m-0 text-dark fs-4 fw-bold">
-            <i className="bi bi-code-slash me-2"></i> {/* Bootstrap Icon */}
-            Raven's Portfolio
-          </h1>
-        </NavLink>
-        
-        <nav className="nav d-none d-md-block">
-          <ul className="nav-list list-unstyled d-flex gap-4 mb-0">
-            <li>
-              <NavLink 
-                to="/" 
-                end 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'active fw-bold' : 'text-muted'}`
-                }
-              >
-                <i className="bi bi-person me-1"></i> About
+    <header className="header">
+      <div className="header__inner container">
+        {/* LOGO / SITE TITLE */}
+        <div className="header__logo-link">
+          <h1 className="header__logo-text">Portfolio</h1>
+        </div>
+
+        {/* NAV LINKS (visible ≥768px) */}
+        <nav className="header__nav">
+          <ul className="header__nav-list">
+            <li className="header__nav-item">
+              <NavLink to="/projects" className={linkClass}>
+                <span className="header__nav-icon">01.</span> Projects
               </NavLink>
             </li>
-            <li>
-              <NavLink 
-                to="/portfolio" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'active fw-bold' : 'text-muted'}`
-                }
-              >
-                <i className="bi bi-collection me-1"></i> Portfolio
+            <li className="header__nav-item">
+              <NavLink to="/about" className={linkClass}>
+                <span className="header__nav-icon">02.</span> About
               </NavLink>
             </li>
-            <li>
-              <NavLink 
-                to="/contact" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'active fw-bold' : 'text-muted'}`
-                }
-              >
-                <i className="bi bi-envelope me-1"></i> Contact
+            <li className="header__nav-item">
+              <NavLink to="/contact" className={linkClass}>
+                <span className="header__nav-icon">03.</span> Contact
               </NavLink>
             </li>
-            <li>
-              <NavLink 
-                to="/resume" 
-                className={({ isActive }) => 
-                  `nav-link ${isActive ? 'active fw-bold' : 'text-muted'}`
-                }
-              >
-                <i className="bi bi-file-earmark-text me-1"></i> Resume
+            <li className="header__nav-item">
+              <NavLink to="/resume" className={linkClass}>
+                <span className="header__nav-icon">04.</span> Resume
               </NavLink>
             </li>
           </ul>
         </nav>
-        
-        <div className="header-actions">
-          <ThemeToggle />
-        </div>
       </div>
     </header>
   );
-};
-
-export default Header;
+}
