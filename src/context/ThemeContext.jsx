@@ -1,12 +1,13 @@
+// src/context/ThemeContext.jsx
 import React, { createContext, useContext, useState } from 'react';
 
-export const ThemeContext = createContext();
+const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
+    setIsDarkMode(prev => !prev);
   };
 
   const theme = isDarkMode ? 'dark' : 'light';
@@ -25,3 +26,5 @@ export function useTheme() {
   }
   return context;
 }
+
+export default ThemeContext;

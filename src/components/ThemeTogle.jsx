@@ -1,27 +1,25 @@
+// src/components/ThemeToggle.jsx
+import React, { useContext } from 'react';
 import { FiSun, FiMoon } from 'react-icons/fi';
-import React from 'react';
-import { ThemeContext } from '../context/ThemeContext';
-import { useTheme } from '../context/ThemeContext'; // Correct import for ThemeContext
-import '../styles/themeToggle.css'; // Ensure this path is correct
+import ThemeContext from '../context/ThemeContext';
+import '../global.css';
 
-const ThemeToggle = () => {
-  const { theme, toggleTheme } = useTheme();
+export default function ThemeToggle() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <button
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-      className="theme-toggle"
+      className={`theme-toggle ${theme === 'dark' ? 'theme-toggle--dark' : ''}`}
       data-theme={theme}
     >
-      <span className="theme-toggle-icon">
-        {theme === 'light' ? <FiMoon className="moon-icon" /> : <FiSun className="sun-icon" />}
+      <span className="theme-toggle__icon">
+        {theme === 'light' ? <FiMoon /> : <FiSun />}
       </span>
-      <span className="theme-toggle-text">
+      <span className="theme-toggle__text">
         {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
       </span>
     </button>
   );
-};
-
-export default ThemeToggle;
+}
