@@ -1,56 +1,58 @@
+// src/pages/Contact.jsx
 import React from 'react';
-import '../styles/Contact.css';
+import { useTheme } from '../context/ThemeContext';
+import '../global.css';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 
-const Contact = () => {
+export default function Contact() {
+  const { theme } = useTheme();
+
   const socialLinks = [
     {
       name: 'GitHub',
       url: 'https://github.com/rhunter27',
       icon: <FaGithub />,
-      color: '#B4A2F6', // Soft purple
+      color: 'var(--accent-primary)',
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/yourusername',
       icon: <FaLinkedin />,
-      color: '#ECAAFB', // Light pink
+      color: 'var(--accent-secondary)',
     },
     {
       name: 'Twitter',
       url: 'https://twitter.com/yourusername',
       icon: <FaTwitter />,
-      color: '#FCE54D', // Pastel yellow
+      color: 'var(--accent-tertiary)',
     },
     {
       name: 'Email',
-      url: 'ravenhunter207@gmail.com',
+      url: 'mailto:ravenhunter207@gmail.com',
       icon: <FaEnvelope />,
-      color: '#F9FBC3', // Cream
+      color: 'var(--accent-quaternary)',
     },
   ];
 
   return (
-    <div className="contact-container">
-      <h1 className="contact-heading">Contact Me</h1>
-      <ul className="social-links">
+    <div className="contact-page" data-theme={theme}>
+      <h1 className="contact-page__heading">Contact Me</h1>
+      <ul className="contact-page__social-list">
         {socialLinks.map((link, index) => (
-          <li key={index} className="social-link-item">
+          <li key={index} className="contact-page__social-item">
             <a
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link"
+              className="contact-page__social-link"
               style={{ color: link.color }}
             >
-              {link.icon}
-              <span className="social-link-name">{link.name}</span>
+              <span className="contact-page__social-icon">{link.icon}</span>
+              <span className="contact-page__social-text">{link.name}</span>
             </a>
           </li>
         ))}
       </ul>
     </div>
   );
-};
-
-export default Contact;
+}

@@ -1,40 +1,40 @@
 // src/pages/About.jsx
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
-import '../styles/About.css';
+import '../global.css';
 
-const About = () => {
+export default function About() {
   const { theme } = useTheme();
 
   return (
-    <div className="about-container">
-      <h1 className="about-heading">About Me</h1>
-      <p className="about-subheading">Frontend Developer | UI/UX Enthusiast</p>
-      
-      <div className="graphic-elements">
-        <div className="graphic-box graphic-creative">
+    <div className="about-page" data-theme={theme}>
+      <h1 className="about-page__heading">About Me</h1>
+      <p className="about-page__subheading">Frontend Developer | UI/UX Enthusiast</p>
+
+      <div className="about-page__graphics">
+        <div className="about-page__graphic-box about-page__graphic-box--creative">
           <span>Creative.</span>
         </div>
-        <div className="graphic-box graphic-number">
+        <div className="about-page__graphic-box about-page__graphic-box--number">
           <span>20</span>
         </div>
-        <div className="graphic-box graphic-about">
+        <div className="about-page__graphic-box about-page__graphic-box--about">
           <span>ABOUT</span>
           <span>US</span>
         </div>
-        <div className="graphic-box graphic-number">
+        <div className="about-page__graphic-box about-page__graphic-box--number">
           <span>26</span>
         </div>
       </div>
 
-      <div className="about-content">
-        <div className="about-story">
-          <h2 className="section-heading">Our Story</h2>
-          <div className="image-container">
-            <img src="./team.jpg" alt="Our team" className="team-photo" />
-            <div className="image-overlay"></div>
+      <div className="about-page__content">
+        <div className="about-page__story">
+          <h2 className="about-page__section-heading">Our Story</h2>
+          <div className="about-page__image-container">
+            <img src="./team.jpg" alt="Our team" className="about-page__team-photo" />
+            <div className="about-page__image-overlay" />
           </div>
-          <p className="about-text">
+          <p className="about-page__text">
             Raven Hunter is a versatile professional with 13+ years in sales and customer service, now expanding into
             technical fields through completion of Rice University's 6-month coding bootcamp. Combines extensive retail
             expertise (jewelry, fashion, healthcare) with newly acquired programming skills to bridge business and
@@ -43,34 +43,30 @@ const About = () => {
           </p>
         </div>
 
-        <div className="about-values">
-          <h3 className="values-heading">Our Values</h3>
-          <ul className="values-list">
-            <li className="value-item">
-              <span className="value-icon">✓</span>
-              <span className="value-text">Customer satisfaction</span>
+        <div className="about-page__values">
+          <h3 className="about-page__values-heading">Our Values</h3>
+          <ul className="about-page__values-list">
+            <li className="about-page__value-item">
+              <span className="about-page__value-icon">✓</span>
+              <span className="about-page__value-text">Customer satisfaction</span>
             </li>
-            <li className="value-item">
-              <span className="value-icon">✓</span>
-              <span className="value-text">Innovation</span>
+            <li className="about-page__value-item">
+              <span className="about-page__value-icon">✓</span>
+              <span className="about-page__value-text">Innovation</span>
             </li>
-            <li className="value-item">
-              <span className="value-icon">✓</span>
-              <span className="value-text">Integrity</span>
+            <li className="about-page__value-item">
+              <span className="about-page__value-icon">✓</span>
+              <span className="about-page__value-text">Integrity</span>
             </li>
-            <li className="value-item">
-              <span className="value-icon">✓</span>
-              <span className="value-text">Creativity</span>
+            <li className="about-page__value-item">
+              <span className="about-page__value-icon">✓</span>
+              <span className="about-page__value-text">Creativity</span>
             </li>
           </ul>
 
-          <button className="learn-more-btn">
-            LEARN MORE
-          </button>
+          <button className="about-page__learn-more-btn">LEARN MORE</button>
         </div>
       </div>
     </div>
   );
-};
-
-export default About;
+}
