@@ -1,15 +1,7 @@
-// components/Footer/Footer.tsx
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+// src/components/Footer.jsx
 import React from 'react';
-import '../styles/global.css'; // Correct path for global.css
-
-/**
- * @typedef {Object} SocialLink
- * @property {string} name - The name of the social platform.
- * @property {string} url - The URL to the social platform.
- * @property {JSX.Element} icon - The icon representing the social platform.
- * @property {string} color - The color associated with the social platform.
- */
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import '../global.css';
 
 export default function Footer() {
   const socialLinks = [
@@ -17,32 +9,32 @@ export default function Footer() {
       name: 'GitHub',
       url: 'https://github.com/yourusername',
       icon: <FaGithub />,
-      color: '#B4A2F6', // Soft purple
+      color: 'var(--accent-primary)', // Soft purple
     },
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/yourusername',
       icon: <FaLinkedin />,
-      color: '#ECAAFB', // Light pink
+      color: 'var(--accent-secondary)', // Light pink
     },
     {
       name: 'Twitter',
       url: 'https://twitter.com/yourusername',
       icon: <FaTwitter />,
-      color: '#FCE54D', // Pastel yellow
+      color: 'var(--accent-tertiary)', // Pastel yellow
     },
     {
       name: 'Email',
       url: 'mailto:you@example.com',
       icon: <FaEnvelope />,
-      color: '#F9FBC3', // Cream
+      color: 'var(--accent-quaternary)', // Cream
     },
   ];
 
   return (
     <footer className="footer">
-      <div className="footer-content">
-        <div className="social-links">
+      <div className="footer__content">
+        <div className="footer__social-links">
           {socialLinks.map((link) => (
             <a
               key={link.name}
@@ -50,14 +42,14 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.name}
+              className="footer__social-link"
               style={{ color: link.color }}
-              className="social-link"
             >
               {link.icon}
             </a>
           ))}
         </div>
-        <p className="copyright">
+        <p className="footer__copyright">
           &copy; {new Date().getFullYear()} Your Name. All rights reserved.
         </p>
       </div>

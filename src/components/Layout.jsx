@@ -1,40 +1,36 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+// src/components/Layout.jsx
+import React, { useContext } from 'react';
+import ThemeContext from '../context/ThemeContext';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import './styles/Layout.css'; // Adjusted import path
-import '../styles/ThemeToggle.css'
+import '../global.css';
 
-const Layout = ({ children }) => {
+export default function Layout({ children }) {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className={`app-container ${theme}-theme`} data-theme={theme}>
+    <div className={`layout layout--${theme}`} data-theme={theme}>
       {/* Decorative background element */}
-      <div className="theme-accent-bg"></div>
-      
+      <div className="layout__accent-bg" />
+
       <Navbar />
-      
-      <div className="app-content">
-        {/* Left sidebar - matches your design */}
-        <aside className="app-sidebar">
-          <div className="creative-tag">Creative.</div>
-          <div className="color-palette">31 Best Color Combinations</div>
-          <div className="title-badge">
-            <span>GRAPHIC</span>
-            <span>DESIGNER</span>
+
+      <div className="layout__content">
+        {/* Left sidebar */}
+        <aside className="layout__sidebar">
+          <div className="layout__sidebar-tag">Creative.</div>
+          <div className="layout__sidebar-palette">31 Best Color Combinations</div>
+          <div className="layout__sidebar-badge">
+            <span className="layout__sidebar-badge-text">GRAPHIC</span>
+            <span className="layout__sidebar-badge-text">DESIGNER</span>
           </div>
         </aside>
 
         {/* Main content area */}
-        <main className="main-content">
-          {children}
-        </main>
+        <main className="layout__main">{children}</main>
       </div>
 
       <Footer />
     </div>
   );
-};
-
-export default Layout;
+}
